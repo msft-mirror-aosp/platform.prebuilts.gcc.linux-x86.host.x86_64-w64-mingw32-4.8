@@ -24,7 +24,7 @@ GNU Packages
 * mpc: (mpc)Multiple Precision Complex Library.
 
 Software development
-* Cpp: (cpp).                   The GNU C preprocessor.
+* Cpplib: (cppinternals).       Cpplib internals.
 * g++: (gcc).                   The GNU C++ compiler.
 * gcc: (gcc).                   The GNU Compiler Collection.
 * gccinstall: (gccinstall).     Installing the GNU Compiler Collection.
@@ -34,3 +34,4 @@ Software development
 Software libraries
 * mpfr: (mpfr).                 Multiple Precision Floating-Point Reliable 
                                   Library.
+rary.
