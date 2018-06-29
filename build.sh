@@ -91,7 +91,7 @@ JOBS=$(( $NUM_CORES * 2 ))
 GMP_VERSION=5.0.5
 MPFR_VERSION=3.1.1
 MPC_VERSION=1.0.1
-BINUTILS_VERSION=2.27
+BINUTILS_VERSION=2.25
 GCC_VERSION=4.8.3
 MINGW_W64_VERSION=v5.0.0
 
@@ -220,7 +220,7 @@ MINGW_W64_SRC=$TOOLCHAIN_DIR/mingw/mingw-w64-$MINGW_W64_VERSION
 
 setup_host_build_env ()
 {
-    local BINPREFIX=$ANDROID_BUILD_TOP/prebuilts/gcc/linux-x86/host/x86_64-linux-glibc2.15-4.8/bin/x86_64-linux-
+    local BINPREFIX=$ANDROID_BUILD_TOP/prebuilts/gcc/linux-x86/host/x86_64-linux-glibc2.11-4.8/bin/x86_64-linux-
 
     CC=${BINPREFIX}gcc
     CXX=${BINPREFIX}g++
@@ -504,7 +504,6 @@ fi
 var_append GCC_CONFIGURE_OPTIONS "--enable-languages=c,c++"
 var_append GCC_CONFIGURE_OPTIONS "--with-sysroot=$INSTALL_DIR"
 var_append GCC_CONFIGURE_OPTIONS "--enable-threads=posix"
-var_append GCC_CONFIGURE_OPTIONS "--enable-shared=libgcc"
 
 build_mingw_tools mingw-w64-tools
 build_mingw_headers mingw-w64-headers

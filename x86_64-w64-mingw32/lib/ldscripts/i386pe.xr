@@ -1,10 +1,9 @@
 /* Script for ld -r: link without relocation */
-/* Copyright (C) 2014-2016 Free Software Foundation, Inc.
+/* Copyright (C) 2014 Free Software Foundation, Inc.
    Copying and distribution of this script, with or without modification,
    are permitted in any medium without royalty provided the copyright
    notice and this notice are preserved.  */
 OUTPUT_FORMAT(pe-i386)
-SEARCH_DIR("=/buildbot/src/android/mingw/out/install/x86_64-w64-mingw32-4.8/x86_64-w64-mingw32/lib"); SEARCH_DIR("=/usr/local/lib"); SEARCH_DIR("=/lib"); SEARCH_DIR("=/usr/lib");
 SECTIONS
 {
   .text  :
@@ -23,20 +22,20 @@ SECTIONS
   {
     *(.data)
     *(.data2)
-    KEEP(*(.jcr))
+    *(.jcr)
   }
   .rdata  :
   {
     *(.rdata)
-    KEEP(*(.rdata_runtime_pseudo_reloc))
+    *(.rdata_runtime_pseudo_reloc)
   }
   .eh_frame  :
   {
-    KEEP(*(.eh_frame*))
+    *(.eh_frame*)
   }
   .pdata  :
   {
-    KEEP(*(.pdata))
+    *(.pdata)
   }
   .bss  :
   {
