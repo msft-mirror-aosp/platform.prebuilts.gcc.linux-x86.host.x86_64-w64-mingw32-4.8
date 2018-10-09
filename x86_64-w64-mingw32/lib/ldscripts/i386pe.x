@@ -4,7 +4,7 @@
    are permitted in any medium without royalty provided the copyright
    notice and this notice are preserved.  */
 OUTPUT_FORMAT(pei-i386)
-SEARCH_DIR("=/buildbot/src/android/mingw/out/install/x86_64-w64-mingw32-4.8/x86_64-w64-mingw32/lib"); SEARCH_DIR("=/usr/local/lib"); SEARCH_DIR("=/lib"); SEARCH_DIR("=/usr/lib");
+SEARCH_DIR("=/usr/local/google/buildbot/src/android/mingw/out/install/x86_64-w64-mingw32-4.8/x86_64-w64-mingw32/lib"); SEARCH_DIR("=/usr/local/lib"); SEARCH_DIR("=/lib"); SEARCH_DIR("=/usr/lib");
 SECTIONS
 {
   /* Make the virtual address and file offset synced if the alignment is
@@ -20,6 +20,7 @@ SECTIONS
      *(.gnu.linkonce.t.*)
     *(.glue_7t)
     *(.glue_7)
+    . = ALIGN(4);
      ___CTOR_LIST__ = .; __CTOR_LIST__ = . ;
 			LONG (-1);*(.ctors); *(.ctor); *(SORT(.ctors.*));  LONG (0);
      ___DTOR_LIST__ = .; __DTOR_LIST__ = . ;
