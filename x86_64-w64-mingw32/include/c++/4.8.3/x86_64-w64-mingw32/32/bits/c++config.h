@@ -524,7 +524,7 @@ namespace std
 /* #undef _GLIBCXX_HAVE_DLFCN_H */
 
 /* Define if EBADMSG exists. */
-/* #undef _GLIBCXX_HAVE_EBADMSG */
+#define _GLIBCXX_HAVE_EBADMSG 1
 
 /* Define if ECANCELED exists. */
 #define _GLIBCXX_HAVE_ECANCELED 1
@@ -533,28 +533,28 @@ namespace std
 #define _GLIBCXX_HAVE_ECHILD 1
 
 /* Define if EIDRM exists. */
-/* #undef _GLIBCXX_HAVE_EIDRM */
+#define _GLIBCXX_HAVE_EIDRM 1
 
 /* Define to 1 if you have the <endian.h> header file. */
 /* #undef _GLIBCXX_HAVE_ENDIAN_H */
 
 /* Define if ENODATA exists. */
-/* #undef _GLIBCXX_HAVE_ENODATA */
+#define _GLIBCXX_HAVE_ENODATA 1
 
 /* Define if ENOLINK exists. */
-/* #undef _GLIBCXX_HAVE_ENOLINK */
+#define _GLIBCXX_HAVE_ENOLINK 1
 
 /* Define if ENOSPC exists. */
 #define _GLIBCXX_HAVE_ENOSPC 1
 
 /* Define if ENOSR exists. */
-/* #undef _GLIBCXX_HAVE_ENOSR */
+#define _GLIBCXX_HAVE_ENOSR 1
 
 /* Define if ENOSTR exists. */
-/* #undef _GLIBCXX_HAVE_ENOSTR */
+#define _GLIBCXX_HAVE_ENOSTR 1
 
 /* Define if ENOTRECOVERABLE exists. */
-/* #undef _GLIBCXX_HAVE_ENOTRECOVERABLE */
+#define _GLIBCXX_HAVE_ENOTRECOVERABLE 1
 
 /* Define if ENOTSUP exists. */
 #define _GLIBCXX_HAVE_ENOTSUP 1
@@ -572,13 +572,13 @@ namespace std
 #define _GLIBCXX_HAVE_EPROTO 1
 
 /* Define if ETIME exists. */
-/* #undef _GLIBCXX_HAVE_ETIME */
+#define _GLIBCXX_HAVE_ETIME 1
 
 /* Define if ETIMEDOUT exists. */
 #define _GLIBCXX_HAVE_ETIMEDOUT 1
 
 /* Define if ETXTBSY exists. */
-/* #undef _GLIBCXX_HAVE_ETXTBSY */
+#define _GLIBCXX_HAVE_ETXTBSY 1
 
 /* Define if EWOULDBLOCK exists. */
 #define _GLIBCXX_HAVE_EWOULDBLOCK 1
