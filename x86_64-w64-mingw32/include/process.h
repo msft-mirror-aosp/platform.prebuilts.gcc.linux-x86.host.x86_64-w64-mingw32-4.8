@@ -7,6 +7,7 @@
 #define _INC_PROCESS
 
 #include <crtdefs.h>
+#include <corecrt_startup.h>
 
 /* Includes a definition of _pid_t and pid_t */
 #include <sys/types.h>
@@ -49,10 +50,13 @@ extern "C" {
 
 #pragma push_macro("abort")
 #undef abort
-  void __cdecl __declspec(noreturn) abort(void);
+  void __cdecl __MINGW_ATTRIB_NORETURN abort(void);
 #pragma pop_macro("abort")
 
 #endif /* _CRT_TERMINATE_DEFINED */
+
+  typedef void (__stdcall *_tls_callback_type)(void*,unsigned long,void*);
+  _CRTIMP void __cdecl _register_thread_local_exe_atexit_callback(_tls_callback_type callback);
 
   void __cdecl __MINGW_NOTHROW _cexit(void);
   void __cdecl __MINGW_NOTHROW _c_exit(void);
@@ -116,10 +120,10 @@ extern "C" {
   void __cdecl __security_init_cookie(void);
 #if (defined(_X86_) && !defined(__x86_64))
   void __fastcall __security_check_cookie(uintptr_t _StackCookie);
-  __declspec(noreturn) void __cdecl __report_gsfailure(void);
+  __MINGW_ATTRIB_NORETURN void __cdecl __report_gsfailure(void);
 #else
   void __cdecl __security_check_cookie(uintptr_t _StackCookie);
-  __declspec(noreturn) void __cdecl __report_gsfailure(uintptr_t _StackCookie);
+  __MINGW_ATTRIB_NORETURN void __cdecl __report_gsfailure(uintptr_t _StackCookie);
 #endif
   extern uintptr_t __security_cookie;
 
