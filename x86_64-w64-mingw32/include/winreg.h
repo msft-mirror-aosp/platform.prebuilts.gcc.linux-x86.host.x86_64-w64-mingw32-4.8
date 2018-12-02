@@ -7,6 +7,7 @@
 #define _WINREG_
 
 #include <_mingw_unicode.h>
+#include <winapifamily.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -110,6 +111,8 @@ extern "C" {
 
 #define WIN31_CLASS NULL
 
+#if WINAPI_FAMILY_PARTITION (WINAPI_PARTITION_DESKTOP)
+
 #define RegConnectRegistry __MINGW_NAME_AW(RegConnectRegistry)
 #define RegConnectRegistryEx __MINGW_NAME_AW(RegConnectRegistryEx)
 #define RegCreateKey __MINGW_NAME_AW(RegCreateKey)
@@ -141,7 +144,7 @@ extern "C" {
   WINADVAPI LONG WINAPI RegOverridePredefKey(HKEY hKey,HKEY hNewHKey);
   WINADVAPI LONG WINAPI RegOpenUserClassesRoot(HANDLE hToken,DWORD dwOptions,REGSAM samDesired,PHKEY phkResult);
   WINADVAPI LONG WINAPI RegOpenCurrentUser(REGSAM samDesired,PHKEY phkResult);
-  WINADVAPI LONG WINAPI RegDisablePredefinedCache();
+  WINADVAPI LONG WINAPI RegDisablePredefinedCache(void);
   WINADVAPI LONG WINAPI RegConnectRegistryA(LPCSTR lpMachineName,HKEY hKey,PHKEY phkResult);
   WINADVAPI LONG WINAPI RegConnectRegistryW(LPCWSTR lpMachineName,HKEY hKey,PHKEY phkResult);
   WINADVAPI LONG WINAPI RegConnectRegistryExA(LPCSTR lpMachineName,HKEY hKey,ULONG Flags,PHKEY phkResult);
@@ -370,8 +373,8 @@ WINADVAPI LONG WINAPI RegSetKeyValueA(
 
 WINADVAPI LONG WINAPI RegSetKeyValueW(
   HKEY hKey,
-  LPCSTR lpSubKey,
-  LPCSTR lpValueName,
+  LPCWSTR lpSubKey,
+  LPCWSTR lpValueName,
   DWORD dwType,
   LPCVOID lpData,
   DWORD cbData
@@ -407,6 +410,8 @@ WINADVAPI DWORD WINAPI InitiateShutdownW(
 #define InitiateShutdown __MINGW_NAME_AW(InitiateShutdown)
 
 #endif /* (_WIN32_WINNT >= 0x0600) */
+
+#endif /* WINAPI_FAMILY_PARTITION (WINAPI_PARTITION_DESKTOP) */
 
 #ifdef __cplusplus
 }
