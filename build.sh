@@ -93,7 +93,7 @@ MPFR_VERSION=3.1.1
 MPC_VERSION=1.0.1
 BINUTILS_VERSION=2.27
 GCC_VERSION=4.8.3
-MINGW_W64_VERSION=v5.0.0
+MINGW_W64_VERSION=v6.x
 
 TARGET_ARCH=x86_64
 TARGET_MULTILIBS=true  # not empty to enable multilib
@@ -386,17 +386,22 @@ build_mingw_pthreads_lib ()
 build_mingw_pthreads ()
 {
     local PKGNAME=$1
+    local LDFLAGS_COMMON="-Wl,--dynamicbase -Wl,--nxcompat"
+    local LDFLAGS_32="$LDFLAGS_COMMON -m32"
+    local LDFLAGS_64="$LDFLAGS_COMMON -Wl,--high-entropy-va"
 
     (
         CFLAGS="$CFLAGS -m32"
         CXXFLAGS="$CXXFLAGS -m32"
-        LDFLAGS="-m32"
+        LDFLAGS=$LDFLAGS_32
         RCFLAGS="-F pe-i386"
         export CFLAGS CXXFLAGS LDFLAGS RCFLAGS
         build_mingw_pthreads_lib $PKGNAME-32 "--build=$BUILD_TAG32 --libdir=$PREFIX_FOR_TARGET/lib32"
         (run cp $PREFIX_FOR_TARGET/bin/libwinpthread-1.dll $PREFIX_FOR_TARGET/lib32) || exit 1
     )
 
+    LDFLAGS=$LDFLAGS_64
+    export LDFLAGS
     build_mingw_pthreads_lib $PKGNAME-64 "--build=$BUILD_TAG64"
 }
 
@@ -522,6 +527,31 @@ build_mingw_crt mingw-w64-crt $CRT_CONFIGURE_OPTIONS
 build_mingw_pthreads mingw-w64-pthreads
 
 build_libgcc gcc-$GCC_VERSION
+
+check_dlls () {
+  local objdump=$INSTALL_DIR/bin/x86_64-w64-mingw32-objdump
+  local dlls=($INSTALL_DIR/x86_64-w64-mingw32/bin/libwinpthread-1.dll
+              $INSTALL_DIR/x86_64-w64-mingw32/lib32/libwinpthread-1.dll
+              $INSTALL_DIR/x86_64-w64-mingw32/lib/libgcc_s_seh-1.dll
+              $INSTALL_DIR/x86_64-w64-mingw32/lib32/libgcc_s_sjlj-1.dll
+              )
+  local dllflags=(00000160 00000140 00000160 00000140)
+
+  # Verify that there are 4 dlls in $INSTALL_DIR
+  four_dlls_found=`find $INSTALL_DIR -iname *.dll | wc -l | grep "^4$"`
+  fail_panic "Number of DLL files in $INSTALL_DIR is not equal to 4"
+
+  # Verify that each DLL has the expected flags for ASLR, DEP set.
+  for index in "${!dlls[@]}"
+  do
+    local dll=${dlls[index]}
+    local flag=${dllflags[index]}
+    found=`${objdump} -x ${dll} | grep DllCharacteristics | grep ${flag}`
+    fail_panic "Expected DllCharacteristics ${flag} not found for ${dll}"
+  done
+}
+
+check_dlls
 
 # Let's generate the licenses/ directory
 LICENSE_DIRS="$SRC_DIR"
