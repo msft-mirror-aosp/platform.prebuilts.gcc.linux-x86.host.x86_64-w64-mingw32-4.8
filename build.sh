@@ -553,17 +553,6 @@ check_dlls () {
 
 check_dlls
 
-# remove gcc-related executables
-rm -f $INSTALL_DIR/bin/x86_64-w64-mingw32-c++
-rm -f $INSTALL_DIR/bin/x86_64-w64-mingw32-cpp
-rm -f $INSTALL_DIR/bin/x86_64-w64-mingw32-g++
-rm -f $INSTALL_DIR/bin/x86_64-w64-mingw32-gcc
-rm -f $INSTALL_DIR/bin/x86_64-w64-mingw32-gcc-4.8.3
-rm -f $INSTALL_DIR/x86_64-w64-mingw32/bin/c++
-rm -f $INSTALL_DIR/x86_64-w64-mingw32/bin/g++
-rm -f $INSTALL_DIR/x86_64-w64-mingw32/bin/gcc
-
-
 # Let's generate the licenses/ directory
 LICENSE_DIRS="$SRC_DIR"
 var_append LICENSE_DIRS "$TOOLCHAIN_DIR/binutils/binutils-$BINUTILS_VERSION"
