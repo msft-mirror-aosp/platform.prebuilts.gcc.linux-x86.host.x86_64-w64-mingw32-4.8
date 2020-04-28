@@ -415,7 +415,7 @@ build_mingw_headers ()
         cd $OUT_DIR/$PKGNAME &&
         log "$PKGNAME: Configuring" &&
         run $MINGW_W64_SRC/mingw-w64-headers/configure --prefix=$PREFIX_FOR_TARGET --host=$TARGET_TAG \
-            --build=$HOST_TAG --enable-sdk=all --enable-secure-api --with-default-msvcrt=ucrt
+            --build=$HOST_TAG --enable-sdk=all --enable-secure-api
         fail_panic "Can't configure mingw-64-headers"
 
         run make
@@ -516,7 +516,7 @@ build_mingw_headers mingw-w64-headers
 
 build_core_gcc gcc-$GCC_VERSION $GCC_CONFIGURE_OPTIONS
 
-CRT_CONFIGURE_OPTIONS="--host=$TARGET_TAG --with-sysroot=$INSTALL_DIR --prefix=$PREFIX_FOR_TARGET --with-default-msvcrt=ucrt"
+CRT_CONFIGURE_OPTIONS="--host=$TARGET_TAG --with-sysroot=$INSTALL_DIR --prefix=$PREFIX_FOR_TARGET"
 if [ "$TARGET_MULTILIBS" ]; then
     var_append CRT_CONFIGURE_OPTIONS "--enable-lib32"
 fi

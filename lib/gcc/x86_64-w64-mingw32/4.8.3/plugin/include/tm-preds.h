@@ -1,5 +1,5 @@
 /* Generated automatically by the program 'build/genpreds'
-   from the machine description file '/work/src/mingw/toolchain/gcc/gcc-4.8.3/gcc/config/i386/i386.md'.  */
+   from the machine description file '/usr/local/google/buildbot/src/android/mingw/toolchain/gcc/gcc-4.8.3/gcc/config/i386/i386.md'.  */
 
 #ifndef GCC_TM_PREDS_H
 #define GCC_TM_PREDS_H
