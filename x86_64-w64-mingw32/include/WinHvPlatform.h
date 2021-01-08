@@ -1,31 +1,17 @@
-/*++
-
-Copyright (c) Microsoft Corporation.  All rights reserved.
-
-Module Name:
-
-    WinHvPlatform.ext
-
-Abstract:
-
-    ApiSet contract for the Windows Hypervisor User-Mode Platform APIs.
-
---*/
+/**
+ * This file is part of the mingw-w64 runtime package.
+ * No warranty is given; refer to the file DISCLAIMER within this package.
+ */
 
 #ifndef _WINHVAPI_H_
 #define _WINHVAPI_H_
-
-#if defined(_MSC_VER) && (_MSC_VER >= 1200)
-#pragma once
-#endif
 
 #include <apiset.h>
 #include <apisetcconv.h>
 #include <minwindef.h>
 #include <winapifamily.h>
 
-#pragma region Desktop Family or OneCore Family
-#if WINAPI_FAMILY_PARTITION(WINAPI_PARTITION_DESKTOP | WINAPI_PARTITION_SYSTEM)
+#if WINAPI_FAMILY_PARTITION(WINAPI_PARTITION_DESKTOP)
 
 #include <WinHvPlatformDefs.h>
 
@@ -33,292 +19,36 @@ Abstract:
 extern "C" {
 #endif
 
-//
-// Platform capabilities
-//
-
-HRESULT
-WINAPI
-WHvGetCapability(
-    _In_ WHV_CAPABILITY_CODE CapabilityCode,
-    _Out_writes_bytes_to_(CapabilityBufferSizeInBytes,*WrittenSizeInBytes) VOID* CapabilityBuffer,
-    _In_ UINT32 CapabilityBufferSizeInBytes,
-    _Out_opt_ UINT32* WrittenSizeInBytes
-    );
-
-
-HRESULT
-WINAPI
-WHvCreatePartition(
-    _Out_ WHV_PARTITION_HANDLE* Partition
-    );
-
-
-HRESULT
-WINAPI
-WHvSetupPartition(
-    _In_ WHV_PARTITION_HANDLE Partition
-    );
-
-
-HRESULT
-WINAPI
-WHvDeletePartition(
-    _In_ WHV_PARTITION_HANDLE Partition
-    );
-
-
-HRESULT
-WINAPI
-WHvGetPartitionProperty(
-    _In_ WHV_PARTITION_HANDLE Partition,
-    _In_ WHV_PARTITION_PROPERTY_CODE PropertyCode,
-    _Out_writes_bytes_to_(PropertyBufferSizeInBytes,*WrittenSizeInBytes) VOID* PropertyBuffer,
-    _In_ UINT32 PropertyBufferSizeInBytes,
-    _Out_opt_ UINT32* WrittenSizeInBytes
-    );
-
-
-HRESULT
-WINAPI
-WHvSetPartitionProperty(
-    _In_ WHV_PARTITION_HANDLE Partition,
-    _In_ WHV_PARTITION_PROPERTY_CODE PropertyCode,
-    _In_reads_bytes_(PropertyBufferSizeInBytes) const VOID* PropertyBuffer,
-    _In_ UINT32 PropertyBufferSizeInBytes
-    );
-
-
-//
-// Memory Management
-//
-
-HRESULT
-WINAPI
-WHvMapGpaRange(
-    _In_ WHV_PARTITION_HANDLE Partition,
-    _In_ VOID* SourceAddress,
-    _In_ WHV_GUEST_PHYSICAL_ADDRESS GuestAddress,
-    _In_ UINT64 SizeInBytes,
-    _In_ WHV_MAP_GPA_RANGE_FLAGS Flags
-    );
-
-
-HRESULT
-WINAPI
-WHvUnmapGpaRange(
-    _In_ WHV_PARTITION_HANDLE Partition,
-    _In_ WHV_GUEST_PHYSICAL_ADDRESS GuestAddress,
-    _In_ UINT64 SizeInBytes
-    );
-
-
-HRESULT
-WINAPI
-WHvTranslateGva(
-    _In_ WHV_PARTITION_HANDLE Partition,
-    _In_ UINT32 VpIndex,
-    _In_ WHV_GUEST_VIRTUAL_ADDRESS Gva,
-    _In_ WHV_TRANSLATE_GVA_FLAGS TranslateFlags,
-    _Out_ WHV_TRANSLATE_GVA_RESULT* TranslationResult,
-    _Out_ WHV_GUEST_PHYSICAL_ADDRESS* Gpa
-    );
-
-
-//
-// Virtual Processors
-//
-
-HRESULT
-WINAPI
-WHvCreateVirtualProcessor(
-    _In_ WHV_PARTITION_HANDLE Partition,
-    _In_ UINT32 VpIndex,
-    _In_ UINT32 Flags
-    );
-
-
-HRESULT
-WINAPI
-WHvDeleteVirtualProcessor(
-    _In_ WHV_PARTITION_HANDLE Partition,
-    _In_ UINT32 VpIndex
-    );
-
-
-HRESULT
-WINAPI
-WHvRunVirtualProcessor(
-    _In_ WHV_PARTITION_HANDLE Partition,
-    _In_ UINT32 VpIndex,
-    _Out_writes_bytes_(ExitContextSizeInBytes) VOID* ExitContext,
-    _In_ UINT32 ExitContextSizeInBytes
-    );
-
-
-UINT32
-WINAPI
-WHvGetRunExitContextSize(
-    VOID
-    );
-
-
-HRESULT
-WINAPI
-WHvCancelRunVirtualProcessor(
-    _In_ WHV_PARTITION_HANDLE Partition,
-    _In_ UINT32 VpIndex,
-    _In_ UINT32 Flags
-    );
-
-
-HRESULT
-WINAPI
-WHvGetVirtualProcessorRegisters(
-    _In_ WHV_PARTITION_HANDLE Partition,
-    _In_ UINT32 VpIndex,
-    _In_reads_(RegisterCount) const WHV_REGISTER_NAME* RegisterNames,
-    _In_ UINT32 RegisterCount,
-    _Out_writes_(RegisterCount) WHV_REGISTER_VALUE* RegisterValues
-    );
-
-
-HRESULT
-WINAPI
-WHvSetVirtualProcessorRegisters(
-    _In_ WHV_PARTITION_HANDLE Partition,
-    _In_ UINT32 VpIndex,
-    _In_reads_(RegisterCount) const WHV_REGISTER_NAME* RegisterNames,
-    _In_ UINT32 RegisterCount,
-    _In_reads_(RegisterCount) const WHV_REGISTER_VALUE* RegisterValues
-    );
-
+HRESULT WINAPI WHvGetCapability(WHV_CAPABILITY_CODE CapabilityCode, VOID *CapabilityBuffer, UINT32 CapabilityBufferSizeInBytes, UINT32 *WrittenSizeInBytes);
+HRESULT WINAPI WHvCreatePartition(WHV_PARTITION_HANDLE *Partition);
+HRESULT WINAPI WHvSetupPartition(WHV_PARTITION_HANDLE Partition);
+HRESULT WINAPI WHvDeletePartition(WHV_PARTITION_HANDLE Partition);
+HRESULT WINAPI WHvGetPartitionProperty(WHV_PARTITION_HANDLE Partition, WHV_PARTITION_PROPERTY_CODE PropertyCode, VOID *PropertyBuffer, UINT32 PropertyBufferSizeInBytes, UINT32 *WrittenSizeInBytes);
+HRESULT WINAPI WHvSetPartitionProperty(WHV_PARTITION_HANDLE Partition, WHV_PARTITION_PROPERTY_CODE PropertyCode, const VOID *PropertyBuffer, UINT32 PropertyBufferSizeInBytes);
+HRESULT WINAPI WHvSuspendPartitionTime(WHV_PARTITION_HANDLE Partition);
+HRESULT WINAPI WHvResumePartitionTime(WHV_PARTITION_HANDLE Partition);
+HRESULT WINAPI WHvMapGpaRange(WHV_PARTITION_HANDLE Partition, VOID *SourceAddress, WHV_GUEST_PHYSICAL_ADDRESS GuestAddress, UINT64 SizeInBytes, WHV_MAP_GPA_RANGE_FLAGS Flags);
+HRESULT WINAPI WHvUnmapGpaRange(WHV_PARTITION_HANDLE Partition, WHV_GUEST_PHYSICAL_ADDRESS GuestAddress, UINT64 SizeInBytes);
+HRESULT WINAPI WHvTranslateGva(WHV_PARTITION_HANDLE Partition, UINT32 VpIndex, WHV_GUEST_VIRTUAL_ADDRESS Gva, WHV_TRANSLATE_GVA_FLAGS TranslateFlags, WHV_TRANSLATE_GVA_RESULT *TranslationResult, WHV_GUEST_PHYSICAL_ADDRESS *Gpa);
+HRESULT WINAPI WHvCreateVirtualProcessor(WHV_PARTITION_HANDLE Partition, UINT32 VpIndex, UINT32 Flags);
+HRESULT WINAPI WHvDeleteVirtualProcessor(WHV_PARTITION_HANDLE Partition, UINT32 VpIndex);
+HRESULT WINAPI WHvRunVirtualProcessor(WHV_PARTITION_HANDLE Partition, UINT32 VpIndex, VOID *ExitContext, UINT32 ExitContextSizeInBytes);
+HRESULT WINAPI WHvCancelRunVirtualProcessor(WHV_PARTITION_HANDLE Partition, UINT32 VpIndex, UINT32 Flags);
+HRESULT WINAPI WHvGetVirtualProcessorRegisters(WHV_PARTITION_HANDLE Partition, UINT32 VpIndex, const WHV_REGISTER_NAME *RegisterNames, UINT32 RegisterCount, WHV_REGISTER_VALUE *RegisterValues);
+HRESULT WINAPI WHvSetVirtualProcessorRegisters(WHV_PARTITION_HANDLE Partition, UINT32 VpIndex, const WHV_REGISTER_NAME *RegisterNames, UINT32 RegisterCount, const WHV_REGISTER_VALUE *RegisterValues);
+HRESULT WINAPI WHvGetVirtualProcessorInterruptControllerState(WHV_PARTITION_HANDLE Partition, UINT32 VpIndex, VOID *State, UINT32 StateSize, UINT32 *WrittenSize);
+HRESULT WINAPI WHvSetVirtualProcessorInterruptControllerState(WHV_PARTITION_HANDLE Partition, UINT32 VpIndex, const VOID *State, UINT32 StateSize);
+HRESULT WINAPI WHvRequestInterrupt(WHV_PARTITION_HANDLE Partition, const WHV_INTERRUPT_CONTROL *Interrupt, UINT32 InterruptControlSize);
+HRESULT WINAPI WHvGetVirtualProcessorXsaveState(WHV_PARTITION_HANDLE Partition, UINT32 VpIndex, VOID *Buffer, UINT32 BufferSizeInBytes, UINT32 *BytesWritten);
+HRESULT WINAPI WHvSetVirtualProcessorXsaveState(WHV_PARTITION_HANDLE Partition, UINT32 VpIndex, const VOID *Buffer, UINT32 BufferSizeInBytes);
+HRESULT WINAPI WHvQueryGpaRangeDirtyBitmap(WHV_PARTITION_HANDLE Partition, WHV_GUEST_PHYSICAL_ADDRESS GuestAddress, UINT64 RangeSizeInBytes, UINT64 *Bitmap, UINT32 BitmapSizeInBytes);
+HRESULT WINAPI WHvGetPartitionCounters(WHV_PARTITION_HANDLE Partition, WHV_PARTITION_COUNTER_SET CounterSet, VOID *Buffer, UINT32 BufferSizeInBytes, UINT32 *BytesWritten);
+HRESULT WINAPI WHvGetVirtualProcessorCounters(WHV_PARTITION_HANDLE Partition, UINT32 VpIndex, WHV_PROCESSOR_COUNTER_SET CounterSet, VOID *Buffer, UINT32 BufferSizeInBytes, UINT32 *BytesWritten);
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif // WINAPI_FAMILY_PARTITION(WINAPI_PARTITION_DESKTOP | WINAPI_PARTITION_SYSTEM)
-#pragma endregion
-
-#endif // _WINHVAPI_H_
-
-
-
-
-
-#ifndef ext_ms_win_hyperv_hvplatform_l1_1_0_query_routines
-#define ext_ms_win_hyperv_hvplatform_l1_1_0_query_routines
-
-
-
-//
-//Private Extension API Query Routines
-//
-
-#ifdef __cplusplus
-extern "C" {
 #endif
 
-BOOLEAN
-__stdcall
-IsWHvGetCapabilityPresent(
-    VOID
-    );
-
-BOOLEAN
-__stdcall
-IsWHvCreatePartitionPresent(
-    VOID
-    );
-
-BOOLEAN
-__stdcall
-IsWHvSetupPartitionPresent(
-    VOID
-    );
-
-BOOLEAN
-__stdcall
-IsWHvDeletePartitionPresent(
-    VOID
-    );
-
-BOOLEAN
-__stdcall
-IsWHvGetPartitionPropertyPresent(
-    VOID
-    );
-
-BOOLEAN
-__stdcall
-IsWHvSetPartitionPropertyPresent(
-    VOID
-    );
-
-BOOLEAN
-__stdcall
-IsWHvMapGpaRangePresent(
-    VOID
-    );
-
-BOOLEAN
-__stdcall
-IsWHvUnmapGpaRangePresent(
-    VOID
-    );
-
-BOOLEAN
-__stdcall
-IsWHvTranslateGvaPresent(
-    VOID
-    );
-
-BOOLEAN
-__stdcall
-IsWHvCreateVirtualProcessorPresent(
-    VOID
-    );
-
-BOOLEAN
-__stdcall
-IsWHvDeleteVirtualProcessorPresent(
-    VOID
-    );
-
-BOOLEAN
-__stdcall
-IsWHvRunVirtualProcessorPresent(
-    VOID
-    );
-
-BOOLEAN
-__stdcall
-IsWHvGetRunExitContextSizePresent(
-    VOID
-    );
-
-BOOLEAN
-__stdcall
-IsWHvCancelRunVirtualProcessorPresent(
-    VOID
-    );
-
-BOOLEAN
-__stdcall
-IsWHvGetVirtualProcessorRegistersPresent(
-    VOID
-    );
-
-BOOLEAN
-__stdcall
-IsWHvSetVirtualProcessorRegistersPresent(
-    VOID
-    );
-
-#ifdef __cplusplus
-}
 #endif
-
-#endif // endof guard
-
