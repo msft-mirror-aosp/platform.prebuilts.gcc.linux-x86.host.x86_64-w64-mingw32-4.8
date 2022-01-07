@@ -94,3 +94,23 @@ cc_prebuilt_library_shared {
         },
     },
 }
+
+cc_prebuilt_library_static {
+    name: "libwinpthread",
+    host_supported: true,
+    enabled: false,
+    target: {
+        windows: {
+            enabled: true,
+        },
+        windows_x86: {
+            srcs: ["x86_64-w64-mingw32/lib32/libwinpthread.a"],
+        },
+        windows_x86_64: {
+            srcs: ["x86_64-w64-mingw32/lib/libwinpthread.a"],
+        },
+    },
+    stl: "none",
+    notice: ":mingw-libwinpthread-notice",
+    licenses: ["winpthreads_license"],
+}
