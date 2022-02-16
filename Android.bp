@@ -56,61 +56,7 @@ license {
     ],
 }
 
-license {
-    name: "winpthreads_license",
-    visibility: ["//build/soong"],
-    license_kinds: [
-        "SPDX-license-identifier-BSD",
-        "SPDX-license-identifier-MIT",
-    ],
-    license_text: ["licenses/mingw-w64-svn-r5861/mingw-w64-libraries/winpthreads/COPYING"],
-}
-
 filegroup {
     name: "mingw-libwinpthread-notice",
     srcs: ["licenses/mingw-w64-svn-r5861/mingw-w64-libraries/winpthreads/COPYING"],
-}
-
-cc_prebuilt_library_shared {
-    name: "libwinpthread-1",
-    host_supported: true,
-    device_supported: false,
-    stl: "none",
-    licenses: ["winpthreads_license"],
-    multilib: {
-        lib32: {
-            srcs: ["x86_64-w64-mingw32/lib32/libwinpthread-1.dll"],
-        },
-        lib64: {
-            srcs: ["x86_64-w64-mingw32/bin/libwinpthread-1.dll"],
-        },
-    },
-    visibility: ["//development/build"],
-
-    enabled: false,
-    target: {
-        windows: {
-            enabled: true,
-        },
-    },
-}
-
-cc_prebuilt_library_static {
-    name: "libwinpthread",
-    host_supported: true,
-    enabled: false,
-    target: {
-        windows: {
-            enabled: true,
-        },
-        windows_x86: {
-            srcs: ["x86_64-w64-mingw32/lib32/libwinpthread.a"],
-        },
-        windows_x86_64: {
-            srcs: ["x86_64-w64-mingw32/lib/libwinpthread.a"],
-        },
-    },
-    stl: "none",
-    notice: ":mingw-libwinpthread-notice",
-    licenses: ["winpthreads_license"],
 }
