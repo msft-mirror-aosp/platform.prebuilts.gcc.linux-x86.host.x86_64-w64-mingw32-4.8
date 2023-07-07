@@ -66,11 +66,6 @@ license {
     license_text: ["licenses/mingw-w64-svn-r5861/mingw-w64-libraries/winpthreads/COPYING"],
 }
 
-filegroup {
-    name: "mingw-libwinpthread-notice",
-    srcs: ["licenses/mingw-w64-svn-r5861/mingw-w64-libraries/winpthreads/COPYING"],
-}
-
 cc_prebuilt_library_shared {
     name: "libwinpthread-1",
     host_supported: true,
@@ -111,6 +106,5 @@ cc_prebuilt_library_static {
         },
     },
     stl: "none",
-    notice: ":mingw-libwinpthread-notice",
     licenses: ["winpthreads_license"],
 }
